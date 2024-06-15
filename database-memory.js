@@ -1,13 +1,13 @@
 import { randomUUID } from 'node:crypto'
 
 export class DatabaseMemory {
-    #alunos = new Map()
+    #Brunos = new Map()
 
     list() {
-        return Array.from(this.#alunos.entries())
-            .map((alunoArray) => {
-                const id = alunoArray[0]
-                const data = alunoArray[1]
+        return Array.from(this.#Brunos.entries())
+            .map((brunoArray) => {
+                const id = brunoArray[0]
+                const data = brunoArray[1]
 
                 return {
                     id,
@@ -16,17 +16,17 @@ export class DatabaseMemory {
             })
     }
 
-    create(aluno) {
-        const alunoId = randomUUID()
+    create(bruno) {
+        const brunoId = randomUUID()
 
-        this.#alunos.set(alunoId, aluno)
+        this.#Brunos.set(brunoId, bruno)
     }
 
-    update(id, aluno) {
-        this.#alunos.set(id, aluno)
+    update(id, bruno) {
+        this.#Brunos.set(id, bruno)
     }
 
     delete(id) {
-        this.#alunos.delete(id)
+        this.#Brunos.delete(id)
     }
 }

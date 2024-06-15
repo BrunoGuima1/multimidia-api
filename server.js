@@ -5,38 +5,40 @@ const server = fastify();
 
 const database = new DatabaseMemory()
 
-server.get('/alunos', () => {
+server.get('/waywise', () => {
     return database.list()
 })
 
-server.post('/alunos', (req, res) => {
-    const { nome, idade, matriculado, time } = req.body
+server.post('/waywise', (req, res) => {
+    const { cadastro, horario, embarque, desembarque, confirm } = req.body
 
     database.create({
-        nome,
-        idade,
-        matriculado,
-        time
+        cadastro,
+        horario,
+        embarque,
+        desembarque,
+        confirm
     })
 
     return res.status(201).send()
 })
 
-server.put('/alunos/:id', (req, res) => {
+server.put('/waywise/:id', (req, res) => {
    const id = req.params.id
-   const { nome, idade, matriculado, time } = req.body
+   const { cadastro, horario, embarque, desembarque, confirm } = req.body
 
    database.update(id, {
-       nome,
-       idade,
-       matriculado,
-       time
+    cadastro,
+    horario,
+    embarque,
+    desembarque,
+    confirm
    })
 
    res.status(204).send()
 })
 
-server.delete('/alunos/:id', (req, res) => {
+server.delete('/waywise/:id', (req, res) => {
     const id = req.params.id
     database.delete(id)
     return res.status(200).send()
