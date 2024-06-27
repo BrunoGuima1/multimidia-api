@@ -1,15 +1,22 @@
 import { fastify } from "fastify";
-import { DatabaseMemory } from "./database-memory.js";
+import cors from '@fastify/cors'
+
+import { DatabaseMemory } from "./database/database-memory.js";
 
 const server = fastify();
 
+await server.register(cors, {
+    origin: '*',
+    methods: ['GET']
+})
+
 const database = new DatabaseMemory()
 
-server.get('/waywise', () => {
+server.get('/wise', () => {
     return database.list()
 })
 
-server.post('/waywise', (req, res) => {
+server.post('/wise', (req, res) => {
     const { cadastro, horario, embarque, desembarque, confirm } = req.body
 
     database.create({
@@ -23,7 +30,7 @@ server.post('/waywise', (req, res) => {
     return res.status(201).send()
 })
 
-server.put('/waywise/:id', (req, res) => {
+server.put('/wise/:id', (req, res) => {
    const id = req.params.id
    const { cadastro, horario, embarque, desembarque, confirm } = req.body
 
@@ -38,7 +45,7 @@ server.put('/waywise/:id', (req, res) => {
    res.status(204).send()
 })
 
-server.delete('/waywise/:id', (req, res) => {
+server.delete('/wise/:id', (req, res) => {
     const id = req.params.id
     database.delete(id)
     return res.status(200).send()
